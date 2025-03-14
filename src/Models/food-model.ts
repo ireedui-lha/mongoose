@@ -10,12 +10,12 @@ type FOOD = {
 
 const FoodSchema: Schema = new Schema(
   {
-    FoodName: { type: String, required: true },
+    categoryName: { type: String, required: true },
     price: { type: Number, require: true },
     image: { type: String, require: true },
-    ingredients: { type: Number, require: true },
+    ingredients: { type: String, require: true },
     category: { type: Object, rel: "FoodCategory", require: true },
   },
   { timestamps: true }
 );
-export default mongoose.model<FOOD>("food", FoodSchema);
+export default mongoose.model<FOOD>("category", FoodSchema);

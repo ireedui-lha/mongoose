@@ -7,6 +7,7 @@ import Random from "./Routers/food-router";
 import User from "./Routers/user-router";
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 configDotenv();
 ConnectMongoose();
 const port = process.env.Port;

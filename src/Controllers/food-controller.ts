@@ -17,16 +17,41 @@ export const getFood = async (req: Request, res: Response) => {
     res.status(400).json({ message: "bolsongue" });
   }
 };
-export const deleteFood = async (req: Request, res: Response) => {
+export const putUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const deleteid = req.params.id;
-    const Deleteuser = await FoodSchema.findByIdAndDelete(deleteid);
-    if (!Deleteuser) {
-      res.status(404).json({ message: "daanc oldsngue" });
+    const updateId = req.params.id;
+    const deletedUser = await FoodSchema.findByIdAndUpdate(updateId, req.body, {
+      new: true,
+    });
+    if (!deletedUser) {
+      res.status(404).json({ message: "Хэрэглэгч олдсонгүй!" });
+      return;
     }
-
-    res.status(200).json({ message: "holbolt amjilttai", data: Deleteuser });
+    res.status(200).json({
+      message: "hereglegch amjilttai shinechlegdlee",
+      data: deletedUser,
+    });
   } catch (error) {
-    res.status(400).json({ message: "bolsongue" });
+    res.status(500).json({ message: "Алдаа гарлаа", error });
+  }
+};
+export const deleteFood = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const deleteId = req.params.id;
+
+    // const deletedUser = await FoodSchema.deleteMany();
+    const deletedUser = await FoodSchema.findByIdAndDelete(deleteId);
+
+    if (!deletedUser) {
+      res.status(404).json({ message: "Хэрэглэгч олдсонгүй!" });
+    }
+    res
+      .status(200)
+      .json({ message: "Хэрэглэгч амжилттай устгагдлаа!", data: deletedUser });
+  } catch (error) {
+    res.status(500).json({ message: "Алдаа гарлаа", error });
   }
 };
